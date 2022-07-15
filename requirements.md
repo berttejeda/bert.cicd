@@ -13,7 +13,8 @@
 
 1. Install [helm](https://helm.sh/docs/intro/install/)
 1. Install the [argo] cli app
-	1. Download the binary:	`curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.3.8/argo-linux-amd64.gz`
+	1. Download the binary:	<br />
+     `curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.3.8/argo-linux-amd64.gz`
 	1. Unzip: `gunzip argo-linux-amd64.gz`
 	1. Make binary executable: `chmod +x argo-linux-amd64`
 	1. Move binary to a location in your path:	`sudo mv ./argo-linux-amd64 /usr/local/bin/argo`
@@ -30,9 +31,12 @@
 1. Update your local chart index: `helm repo update`
 1. `helm install minio minio/minio -n argo-cicd`
 1. Default username is `minioadmin`
-1. accesskey can be obtained via `echo $(kubectl -n argo-cicd get secret minio -o jsonpath="{.data.accesskey}" | base64 -d; echo)`<br />
-1. secretkey can be obtained via `echo $(kubectl -n argo-cicd get secret minio -o jsonpath="{.data.secretkey}" | base64 -d; echo)`<br />
-1. Create a port forwarding rule to your minio UI via the Kubernetes Port Forwarding feature: `kubectl -n argo-cicd port-forward deployment/minio --address 0.0.0.0 9000:9000`
+1. accesskey can be obtained via <br />
+   `echo $(kubectl -n argo-cicd get secret minio -o jsonpath="{.data.accesskey}" | base64 -d; echo)`<br />
+1. secretkey can be obtained via <br />
+   `echo $(kubectl -n argo-cicd get secret minio -o jsonpath="{.data.secretkey}" | base64 -d; echo)`<br />
+1. Create a port forwarding rule to your minio UI via the Kubernetes Port Forwarding feature: <br />
+   `kubectl -n argo-cicd port-forward deployment/minio --address 0.0.0.0 9000:9000`
 1. Navigate to the UI: http://127.0.0.1:9000
 1. Login using the credentials obtained from the above installation steps 
 1. Create a new bucket named `argo-workflow-bucket`
@@ -45,9 +49,14 @@ Readings:
 ## Install Argo Workflow
 
 1. Add the helm repository for argo: `helm repo add argo https://argoproj.github.io/argo-helm`
-1. Install argo-workflow: `helm install argo-workflows argo/argo-workflows --set server.extraArgs='{--auth-mode=server}' -n argo-cicd`<br />
+1. Install argo-workflow: <br />
+   `helm install argo-workflows argo/argo-workflows --set server.extraArgs='{--auth-mode=server}' -n argo-cicd`<br />
    Notice how I've passed in `server.extraArgs`. This removes the authentication requirement from the argo-workflows UI
-1. Apply the workflow controller config map to have it use minio for its artifact repository: `kubectl -n argo-cicd apply -f cicd/configmap.yaml`
+1. Apply the workflow controller config map to have it use minio for its artifact repository: <br />
+   `kubectl -n argo-cicd apply -f cicd/configmap.yaml`
+1. Since this is a local test environment, let's grant proper admin privileges for the workflow engine,<br />
+   as per [Service Accounts - Argo Workflows - The workflow engine for Kubernetes](https://argoproj.github.io/argo-workflows/service-accounts/):<br />
+   `kubectl create rolebinding default-admin --clusterrole=admin --serviceaccount=argo-cicd:default  -n argo-cicd`
 
 Readings:
 
