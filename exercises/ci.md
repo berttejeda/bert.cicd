@@ -27,12 +27,22 @@ dependency graph that can not result in an infinite dependency loop.
    Notice how the step named 'Third' finished executing before the step named 'Second'.<br />
    This is because there were no explicit dependencies defined between them.
 1. We can review the dependency graph for this workflow from the argo-workflow UI
-1. Create a port forwarding rule to your argo-workflow UI via the Kubernetes Port Forwarding feature: `kubectl -n argo-cicd port-forward deployment/argo-workflows-server --address 0.0.0.0 2746:2746`
+1. Create a port forwarding rule to your argo-workflow UI via the Kubernetes Port Forwarding feature: <br />
+   `kubectl -n argo-cicd port-forward deployment/argo-workflows-server --address 0.0.0.0 2746:2746`
 1. Navigate to the argo-workflows UI: http://127.0.0.1:2746
 1. Click _Workflows_ in the lefthand navigation bar
 1. Enter in _argo-cicd_ for the namespace
-1. Click the workflow entry matching _dag-hello_
+1. Click the workflow entry matching _dag-hello-02_
 1. Review the dependency graph
+
+# Exercise 3 - Docker-In-Dockr
+
+1. Submit: `argo -n argo-cicd submit cicd/workflows/dind.yaml --watch`<br />
+   Your terminal will refresh a few times before the workflow completes.
+1. List workflows in the argo-cicd namespace: `kubectl -n argo-cicd get workflows`
+1. Review the output of the latest workflow: `argo -n argo-cicd logs @latest`<br />
+   Notice how we ran a docker container and showed its OS information<br />
+   Pretty cool that we can directly interact with the docker daemon.
 
 # Readings
 
