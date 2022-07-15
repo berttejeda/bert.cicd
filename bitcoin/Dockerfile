@@ -52,17 +52,6 @@ RUN for key in \
   && rm *.tar.gz *.asc \
   && rm -rf /opt/bitcoin-${BITCOIN_VERSION}/bin/bitcoin-qt
 
-# Install gosu.  https://github.com/tianon/gosu
-ENV GOSU_VERSION=1.14
-RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-amd64" \
-    && curl -o /usr/local/bin/gosu.asc -SL "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-amd64.asc" \
-    && gpg --verify /usr/local/bin/gosu.asc \
-    && rm /usr/local/bin/gosu.asc \
-    && rm -r /root/.gnupg/ \
-    && chmod +x /usr/local/bin/gosu \
-    # Verify that the binary works
-    && gosu nobody true
-
 ENV BITCOIN_DATA=/home/$USER/.bitcoin
 
 RUN mkdir $BITCOIN_DATA && chown -R $USER:$USER $BITCOIN_DATA
