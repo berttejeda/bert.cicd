@@ -1,0 +1,37 @@
+# https://pipekit.io/blog/what-is-argo-workflows
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: dag-hello-
+spec:
+  entrypoint: dag-hello # This is the first step that gets invoked in the workflow
+  templates:
+    - name: echo
+      inputs:
+        parameters:
+          - name: message
+      container:
+        image: alpine:3.7
+        command: [echo, "{{inputs.parameters.message}}"]
+    - name: dag-hello
+      dag:
+        tasks:
+          - name: First
+            template: echo
+            arguments:
+              parameters: [{name: message, value: "First!"}]
+          - name: Second
+            dependencies: [First]
+            template: echo
+            arguments:
+              parameters: [{name: message, value: "Second!"}]
+          - name: Third
+            dependencies: [First]
+            template: echo
+            arguments:
+              parameters: [{name: message, value: "Third!"}]
+          - name: Fourth
+            dependencies: [Second, Third]
+            template: echo
+            arguments:
+              parameters: [{name: message, value: "Fourth!"}] 

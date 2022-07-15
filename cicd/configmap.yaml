@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: workflow-controller-configmap
+data:
+  config: |
+    artifactRepository:
+      archiveLogs: true
+      s3:
+        bucket: argo-workflow-bucket
+        endpoint: minio:9000
+        insecure: true
+        accessKeySecret:
+          name: minio
+          key: accesskey
+        secretKeySecret:
+          name: minio
+          key: secretkey      
+    executor:
+      resources:
+        requests:
+          cpu: 100m
+          memory: 100Mi
+        limits:
+          cpu: 400m
+          memory: 800Mi
+
+      

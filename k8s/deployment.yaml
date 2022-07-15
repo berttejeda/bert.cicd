@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bitcoin
+  labels:
+    app: bitcoin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bitcoin
+  template:
+    metadata:
+      labels:
+        app: bitcoin
+    spec:
+      containers:
+        - name: bitcoin
+          image: berttejeda/bitcoin:22.0
+          imagePullPolicy: Always
+          command: 
+            - bitcoind
+          args:
+            - "-rpcallowip=0.0.0.0/0"
+            - "-rpcbind=0.0.0.0"
+          resources:
+            limits:
+              cpu: 4
+              memory: 512Mi
+            requests:
+              cpu: 1
+              memory: 256Mi
+          ports:
+          - containerPort: 8333
+            hostPort: 8333
+            protocol: TCP
+            name: b-live
+          - containerPort: 8332
+            name: b-json-rpc
+            hostPort: 8332
+            protocol: TCP

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-bitcoin
+spec:
+  selector:
+    app: bitcoin
+  ports:
+    - protocol: TCP
+      name: http
+      port: 80
+      targetPort: 8332
