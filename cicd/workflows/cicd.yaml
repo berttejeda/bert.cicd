@@ -10,7 +10,7 @@ spec:
   arguments:
     parameters:
       - name: repo
-        value: git@github.com:berttejeda/bert.cicd.git
+        value: git@github.com:YOUR_USERNAME/YOUR_GIT_REPO.git
       - name: branch
         value: main
       - name: path
@@ -18,7 +18,7 @@ spec:
       - name: app
         value: bitcoin
       - name: docker_repo
-        value: berttejeda
+        value: YOUR_USERNAME
       - name: tag
         value: latest
       - name: namespace
