@@ -11,19 +11,19 @@ See lab [requirements.md](requirements.md).
 From _u/spruce-bruce_ over at [(5) ELI5: What is CI/CD and Why do we need them? : devops](https://www.reddit.com/r/devops/comments/t5nufe/eli5_what_is_cicd_and_why_do_we_need_them/):
 
 > Continuous integration is the practice of regularly integrating (merging) code with the rest of the organization. 
-
-	It used to be common for individuals or teams to keep their code isolated in branches for many months and merge infrequently.
-	
-	Continuous delivery is a philosophy and set of practices around always keeping your application in a deployable state. 
-	
-	In order to achieve this we construct a deployment pipeline that serves to validate the correctness of changes, 
-	and deliver those changes through a series of test environments, culminating in a production deploy.
-	
-	CI/CD together is the practice of merging changes frequently as devs work and having those changes pass through a series of automated tests. 
-	
-	Upon completion those changes are bundled into a release candidate that can then be deployed automatically into production. 
-	
-	Teams practicing CI/CD will typically produce many release candidates in one day.
+>
+> It used to be common for individuals or teams to keep their code isolated in branches for many months and merge infrequently.
+> 
+> Continuous delivery is a philosophy and set of practices around always keeping your application in a deployable state. 
+> 
+> In order to achieve this we construct a deployment pipeline that serves to validate the correctness of changes, 
+> and deliver those changes through a series of test environments, culminating in a production deploy.
+> 
+> CI/CD together is the practice of merging changes frequently as devs work and having those changes pass through a series of automated tests. 
+> 
+> Upon completion those changes are bundled into a release candidate that can then be deployed automatically into production. 
+> 
+> Teams practicing CI/CD will typically produce many release candidates in one day.
 
 # Exercises
 
