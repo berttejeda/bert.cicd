@@ -13,7 +13,7 @@ This is a proverbial _hello world_ example
 
 This exercise exercise demonstrates ordered execution of tasks
 
-A [directed acyclic graph][https://en.wikipedia.org/wiki/Directed_acyclic_graph] is a type of 
+A [directed acyclic graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) is a type of 
 dependency graph that can not result in an infinite dependency loop.
 
 1. Submit the workflow: `argo -n argo-cicd submit cicd/workflows/dag-01.yaml --watch`<br />
